@@ -93,7 +93,7 @@
         </option>
         <option>
           <name>GenLowLevelInterface</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>GEndianModeBE</name>
@@ -322,6 +322,7 @@
           <state>$PROJ_DIR$\..\..\Drivers/CMSIS/Device/ST/STM32F4xx/Include</state>
           <state>$PROJ_DIR$\..\..\Drivers/CMSIS/Include</state>
           <state>$PROJ_DIR$\..\..\Drivers\STM32F4xx_HAL_Driver\Inc</state>
+          <state>$PROJ_DIR$\..\..\Drivers\CMSIS\Include</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -613,7 +614,7 @@
         </option>
         <option>
           <name>OOCOutputFile</name>
-          <state>Project.srec</state>
+          <state>cube_video_test1.srec</state>
         </option>
         <option>
           <name>OOCCommandLineProducer</name>

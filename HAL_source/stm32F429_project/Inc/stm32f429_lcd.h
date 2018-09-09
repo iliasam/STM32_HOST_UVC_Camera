@@ -57,6 +57,7 @@ sFONT *LCD_GetFont(void);
 void LCD_DrawChar(uint16_t Xpos, uint16_t Ypos, const uint16_t *c);
 void LCD_DisplayChar(uint16_t Line, uint16_t Column, uint8_t Ascii);
 void LCD_DisplayStringLine(uint16_t Line, uint8_t *ptr);
+void lcd_print_char(char c);
 
 void lcd_draw_yuyv_picture(uint8_t* source);
 

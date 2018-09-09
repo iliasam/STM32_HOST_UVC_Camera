@@ -13,7 +13,7 @@ CStepIntDis=_ 0
 stlinkserialNo=BBAD2C26
 stlinkfoundProbes=
 [DebugChecksum]
-Checksum=859069997
+Checksum=1553156057
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -104,10 +104,7 @@ ShowTiming=1
 mode=0
 [Breakpoints2]
 Bp0=_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Middlewares\ST\STM32_USB_Host_Library\Class\VIDEO\Src\usbh_video_stream_parsing.c}.128.13" 0 0 1 "" 0 "" 0
-Bp1=_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\..\Middlewares\ST\STM32_USB_Host_Library\Class\VIDEO\Src\usbh_video_desc_parsing.c}.150.5" 0 0 1 "" 0 "" 0
-Bp2=_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\..\Middlewares\ST\STM32_USB_Host_Library\Class\VIDEO\Src\usbh_video.c}.107.5" 0 0 1 "" 0 "" 0
-Bp3=_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\..\Middlewares\ST\STM32_USB_Host_Library\Class\VIDEO\Src\usbh_video_desc_parsing.c}.99.9" 0 0 1 "" 0 "" 0
-Count=4
+Count=1
 [Aliases]
 Count=0
 SuppressDialog=0

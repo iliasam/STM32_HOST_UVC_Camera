@@ -7,7 +7,7 @@
 
 #define LCD_FRAME_BUFFER        ((uint32_t)0xD0000000)
 
-#define LCD_DEFAULT_FONT        Font16x24
+#define LCD_DEFAULT_FONT        Font12x12
 
 
 LTDC_HandleTypeDef hltdc;
@@ -19,6 +19,9 @@ static sFONT *LCD_Currentfonts;
 
 static uint16_t CurrentTextColor   = 0x0000;
 static uint16_t CurrentBackColor   = 0xFFFF;
+
+uint16_t lcd_printing_x = 0;
+uint16_t lcd_printing_y = 0;
 
 void lcd_convert_yuyv_pixels(uint8_t* data, uint16_t* pixel0, uint16_t* pixel1);
 uint16_t lcd_convert_yuyv_to_rgb(uint8_t y, uint8_t u, uint8_t v);
@@ -127,6 +130,8 @@ void lcd_clear(uint16_t color)
       HAL_DMA2D_PollForTransfer(&hdma2d, 10);
     }
   }
+  lcd_printing_x = 0;
+  lcd_printing_y = 0;
 }
 
 /**
@@ -245,6 +250,24 @@ void LCD_DisplayChar(uint16_t Line, uint16_t Column, uint8_t Ascii)
   Ascii -= 32;
 
   LCD_DrawChar(Line, Column, &LCD_Currentfonts->table[Ascii * LCD_Currentfonts->Height]);
+}
+
+void lcd_print_char(char c)
+{
+  if (c == 10)
+  {
+    lcd_printing_y+= LCD_Currentfonts->Height;
+    lcd_printing_x = 0;
+    return;
+  }
+  LCD_DisplayChar(lcd_printing_y, lcd_printing_x, c);
+  lcd_printing_x += LCD_Currentfonts->Width;
+  
+  if (lcd_printing_x > LCD_PIXEL_WIDTH)
+  {
+    lcd_printing_y+= LCD_Currentfonts->Height;
+    lcd_printing_x = 0;
+  }
 }
 
 /**

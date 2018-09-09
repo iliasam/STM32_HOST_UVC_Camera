@@ -2,16 +2,18 @@
 //Dont't forget aboun HEAP size
 
 /* Includes ------------------------------------------------------------------*/
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "main.h"
 #include "stm32f4xx_hal.h"
 #include "usb_host.h"
 #include "usbh_video.h"
 #include "usbh_video_stream_parsing.h"
-
-/* USER CODE BEGIN Includes */
 #include "stm32f429_sdram.h"
 #include "stm32f429_lcd.h"
-/* USER CODE END Includes */
+
+
 
 /* Private variables ---------------------------------------------------------*/
 DMA2D_HandleTypeDef hdma2d;
@@ -19,7 +21,6 @@ SDRAM_HandleTypeDef hsdram1;
 SDRAM_HandleTypeDef hsdram1;
 TIM_HandleTypeDef htim9;
 
-volatile uint32_t test_buf[1024];
 volatile uint16_t cnt = 0;
 
 volatile uint8_t uvc_framebuffer0[UVC_UNCOMP_FRAME_SIZE];
@@ -63,6 +64,7 @@ int main(void)
   MX_TIM9_Init();
   
   lcd_clear(LCD_COLOR_WHITE);
+  printf("Waiting for UVC Camera\n");
     
   while (1)
   {
@@ -373,6 +375,14 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOI, GPIO_PIN_6|LED_Pin, GPIO_PIN_RESET);
 
+}
+
+
+// Comment to use semihosting
+int putchar(int c)
+{
+  lcd_print_char(c);
+  return c;    
 }
 
 

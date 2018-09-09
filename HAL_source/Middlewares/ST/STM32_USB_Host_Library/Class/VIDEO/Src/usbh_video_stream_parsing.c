@@ -119,16 +119,6 @@ void video_stream_switch_buffers(void)
      uvc_parsing_new_frame_ready = 1;
      uvc_parsing_switch_ready = 0;//waiting fo data to be processed by external software
      uvc_parsing_enabled = 1;
-     
-     if (uvc_parsing_test)
-     {
-       uvc_parsing_test = 0;
-       char path[32];
-       sprintf(path, "D:/damp%d.raw", uvc_frame_cnt);
-        int f1 = __open(path, _LLIO_CREAT | _LLIO_TRUNC | _LLIO_WRONLY | _LLIO_BINARY);
-        __write(f1, (uint8_t *)(uvc_ready_framebuffer_ptr), UVC_UNCOMP_FRAME_SIZE);
-        __close(f1);
-     }
   }
   else
   {
