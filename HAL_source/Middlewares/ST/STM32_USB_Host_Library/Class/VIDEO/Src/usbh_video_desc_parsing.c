@@ -56,7 +56,7 @@ USBH_StatusTypeDef USBH_VIDEO_FindStreamingIN(USBH_HandleTypeDef *phost)
 
 
 /**
-  * @brief  Parse AC and interfaces Descriptors
+  * @brief  Parse VC and interfaces Descriptors
   * @param  phost: Host handle
   * @retval USBH Status
   */
@@ -138,7 +138,7 @@ USBH_StatusTypeDef ParseCSDescriptors(VIDEO_ClassSpecificDescTypedef *class_desc
       break;
       
     case UVC_VC_SELECTOR_UNIT:
-      class_desc->cs_desc.SelectorUnitDesc[class_desc->SelectorUnitNum++] = (AUDIO_SelectorDescTypeDef*) pdesc; 
+      class_desc->cs_desc.SelectorUnitDesc[class_desc->SelectorUnitNum++] = (VIDEO_SelectorDescTypeDef*) pdesc; 
       break;    
 
     default: 

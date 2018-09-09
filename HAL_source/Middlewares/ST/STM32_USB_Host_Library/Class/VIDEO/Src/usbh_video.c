@@ -10,7 +10,7 @@ static USBH_StatusTypeDef USBH_VIDEO_InterfaceInit  (USBH_HandleTypeDef *phost);
 static USBH_StatusTypeDef USBH_VIDEO_InterfaceDeInit  (USBH_HandleTypeDef *phost);
 static USBH_StatusTypeDef USBH_VIDEO_SOFProcess(USBH_HandleTypeDef *phost);
 static USBH_StatusTypeDef USBH_VIDEO_ClassRequest(USBH_HandleTypeDef *phost);
-static USBH_StatusTypeDef USBH_AUDIO_CSRequest(USBH_HandleTypeDef *phost, 
+static USBH_StatusTypeDef USBH_VIDEO_CSRequest(USBH_HandleTypeDef *phost, 
                                                uint8_t feature, 
                                                uint8_t channel);
 static USBH_StatusTypeDef USBH_VIDEO_ProcessDummy(USBH_HandleTypeDef *phost);
@@ -83,7 +83,7 @@ static USBH_StatusTypeDef USBH_VIDEO_InterfaceInit (USBH_HandleTypeDef *phost)
     }
     
     /* 2nd Step:  Select Audio Streaming Interfaces with best endpoint size*/ 
-    for (index = 0; index < AUDIO_MAX_AUDIO_STD_INTERFACE; index++)
+    for (index = 0; index < VIDEO_MAX_VIDEO_STD_INTERFACE; index++)
     {      
       if( VIDEO_Handle->stream_in[index].valid == 1)
       {
@@ -252,13 +252,13 @@ static USBH_StatusTypeDef USBH_VIDEO_ClassRequest(USBH_HandleTypeDef *phost)
 }
 
 /**
-  * @brief  USBH_AUDIO_CSRequest 
+  * @brief  USBH_VIDEO_CSRequest 
   *         The function is responsible for handling AC Specific requests for a specific feature and channel
   *         for Audio class.
   * @param  phost: Host handle
   * @retval USBH Status
   */
-static USBH_StatusTypeDef USBH_AUDIO_CSRequest(USBH_HandleTypeDef *phost, uint8_t feature, uint8_t channel)
+static USBH_StatusTypeDef USBH_VIDEO_CSRequest(USBH_HandleTypeDef *phost, uint8_t feature, uint8_t channel)
 {   
   USBH_StatusTypeDef status = USBH_BUSY;
 
@@ -279,7 +279,7 @@ static USBH_StatusTypeDef USBH_VIDEO_HandleCSRequest(USBH_HandleTypeDef *phost)
   USBH_StatusTypeDef cs_status = USBH_BUSY;
   VIDEO_HandleTypeDef *VIDEO_Handle =  (VIDEO_HandleTypeDef *) phost->pActiveClass->pData;  
         
-  cs_status = USBH_AUDIO_CSRequest(phost, 
+  cs_status = USBH_VIDEO_CSRequest(phost, 
                                    VIDEO_Handle->temp_feature, 
                                    0);
   

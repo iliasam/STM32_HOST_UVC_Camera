@@ -1,7 +1,7 @@
 
 /* Define to prevent recursive  ----------------------------------------------*/
-#ifndef __USBH_AUDIO_H
-#define __USBH_AUDIO_H
+#ifndef __USBH_VIDEO_H
+#define __USBH_VIDEO_H
 
 #ifdef __cplusplus
  extern "C" {
@@ -20,30 +20,30 @@
 // Uncompressed image frame size in byte
 #define UVC_UNCOMP_FRAME_SIZE           (UVC_TARGET_WIDTH * UVC_TARGET_HEIGHT * 2)
 
-/* States for AUDIO State Machine */
+/* States for VIDEO State Machine */
 typedef enum
 {
-  AUDIO_INIT = 0, 
-  AUDIO_IDLE,   
-  AUDIO_CS_REQUESTS,
-  AUDIO_SET_DEFAULT_FEATURE_UNIT,
-  AUDIO_SET_INTERFACE,
-  AUDIO_SET_STREAMING_INTERFACE,
-  AUDIO_SET_CUR1,
-  AUDIO_GET_RES,
-  AUDIO_GET_CUR1,
-  AUDIO_SET_CUR2,
-  AUDIO_GET_CUR2,
-  AUDIO_SET_CUR3,
-  AUDIO_SET_INTERFACE0,
-  AUDIO_SET_INTERFACE1,
-  AUDIO_SET_INTERFACE2,
-  AUDIO_ISOC_OUT,        
-  AUDIO_ISOC_IN,  
-  AUDIO_ISOC_POLL,
-  AUDIO_ERROR,  
+  VIDEO_INIT = 0, 
+  VIDEO_IDLE,   
+  VIDEO_CS_REQUESTS,
+  VIDEO_SET_DEFAULT_FEATURE_UNIT,
+  VIDEO_SET_INTERFACE,
+  VIDEO_SET_STREAMING_INTERFACE,
+  VIDEO_SET_CUR1,
+  VIDEO_GET_RES,
+  VIDEO_GET_CUR1,
+  VIDEO_SET_CUR2,
+  VIDEO_GET_CUR2,
+  VIDEO_SET_CUR3,
+  VIDEO_SET_INTERFACE0,
+  VIDEO_SET_INTERFACE1,
+  VIDEO_SET_INTERFACE2,
+  VIDEO_ISOC_OUT,        
+  VIDEO_ISOC_IN,  
+  VIDEO_ISOC_POLL,
+  VIDEO_ERROR,  
 }
-AUDIO_StateTypeDef;
+VIDEO_StateTypeDef;
 
 typedef enum
 {
@@ -53,35 +53,15 @@ typedef enum
   VIDEO_REQ_SET_IN_INTERFACE,
   VIDEO_REQ_CS_REQUESTS,
 }
-AUDIO_ReqStateTypeDef;
-
-
-typedef enum
-{
- AUDIO_PLAYBACK_INIT = 1,
- AUDIO_PLAYBACK_SET_EP,
- AUDIO_PLAYBACK_SET_EP_FREQ,
- AUDIO_PLAYBACK_PLAY,  
- AUDIO_PLAYBACK_IDLE,
-}
-AUDIO_PlayStateTypeDef;
-
-typedef enum
-{
- VOLUME_UP = 1,
- VOLUME_DOWN = 2,   
-}
-AUDIO_VolumeCtrlTypeDef;
+VIDEO_ReqStateTypeDef;
 
 typedef enum
 {
  VIDEO_CONTROL_INIT = 1,
- AUDIO_CONTROL_CHANGE,
- AUDIO_CONTROL_IDLE,
- AUDIO_CONTROL_VOLUME_UP,
- AUDIO_CONTROL_VOLUME_DOWN,   
+ VIDEO_CONTROL_CHANGE,
+ VIDEO_CONTROL_IDLE, 
 }
-AUDIO_ControlStateTypeDef;
+VIDEO_ControlStateTypeDef;
 
 typedef enum
 {
@@ -92,17 +72,6 @@ typedef enum
 VIDEO_StreamStateTypeDef;
 
 
-
-
-/* Structure for AUDIO process */
-typedef struct
-{
-  uint8_t   Channels;
-  uint8_t   Bits;
-  uint32_t  SampleRate;
-} 
-AUDIO_FormatTypeDef;
-
 typedef struct
 {
   uint8_t              Ep;//bEndpointAddress
@@ -112,22 +81,10 @@ typedef struct
   uint8_t              valid; 
   uint16_t             Poll;//bInterval
 }
-AUDIO_STREAMING_IN_HandleTypeDef;
-
-
-typedef struct
-{
-  uint8_t              mute;
-  uint32_t             volumeMin;
-  uint32_t             volumeMax;
-  uint32_t             volume;
-  uint32_t             resolution;  
-} 
-AUDIO_ControlAttributeTypeDef;
+VIDEO_STREAMING_IN_HandleTypeDef;
 
 typedef struct
 {
-
   uint8_t              Ep;
   uint16_t             EpSize; 
   uint8_t              interface; 
@@ -138,28 +95,20 @@ typedef struct
   uint8_t              Poll; 
   uint32_t             timer ; 
   
-  uint8_t              asociated_as; 
-  //uint8_t              asociated_mixer; 
-  //uint8_t              asociated_selector; 
-  //uint8_t              asociated_feature; 
-  //uint8_t              asociated_terminal;
-  //uint8_t              asociated_channels;
+  uint8_t              asociated_as;
   
-  uint32_t             frequency; 
   uint8_t              *buf;
   uint8_t              *cbuf; 
   uint32_t             partial_ptr; 
 
   uint32_t             global_ptr;  
   uint16_t             frame_length;  
-  uint32_t             total_length; 
-  
-  AUDIO_ControlAttributeTypeDef attribute;  
+  uint32_t             total_length;  
 }
-AUDIO_InterfaceStreamPropTypeDef;
+VIDEO_InterfaceStreamPropTypeDef;
 
 
-#define AUDIO_MAX_AUDIO_STD_INTERFACE      0x05
+#define VIDEO_MAX_VIDEO_STD_INTERFACE      0x05
 
 // Video Control Descriptor
 #define VIDEO_MAX_NUM_IN_TERMINAL          10
@@ -175,54 +124,18 @@ AUDIO_InterfaceStreamPropTypeDef;
 #define VIDEO_MAX_MJPEG_FRAME_D            10
 
 #define VIDEO_MAX_UNCOMP_FORMAT             3
-#define VIDEO_MAX_UNCOMP_FRAME_D           10
+#define VIDEO_MAX_UNCOMP_FRAME_D            10
 
 
 
-#define AUDIO_MAX_SAMFREQ_NBR              5
+#define VIDEO_MAX_SAMFREQ_NBR              5
 #define VIDEO_MAX_INTERFACE_NBR            5
-#define AUDIO_MAX_CONTROLS_NBR             5
+#define VIDEO_MAX_CONTROLS_NBR             5
 
 #define VS_PROBE_CONTROL                   0x01
 #define VS_COMMIT_CONTROL                  0x02
 
-/*Class-Specific AS(Audio Streaming) Interface Descriptor*/
-typedef struct
-{
-  uint8_t bLength; 
-  uint8_t bDescriptorType;
-  uint8_t bDescriptorSubtype;
-  uint8_t bTerminalLink;
-  uint8_t bDelay;
-  uint8_t wFormatTag[2];
-}
-AUDIO_ASGeneralDescTypeDef;
-
-/*Class-Specific AS(Audio Streaming) Format Type Descriptor*/
-typedef struct
-{
-  uint8_t bLength;
-  uint8_t bDescriptorType;
-  uint8_t bDescriptorSubtype;
-  uint8_t bFormatType;
-  uint8_t bNrChannels;
-  uint8_t bSubframeSize;
-  uint8_t bBitResolution;
-  uint8_t bSamFreqType;
-  uint8_t tSamFreq[AUDIO_MAX_SAMFREQ_NBR][3];
-}
-AUDIO_ASFormatTypeDescTypeDef;
-
-/*Class-Specific AS(Audio Streaming) Interface Descriptor*/
-typedef struct
-{
-  AUDIO_ASGeneralDescTypeDef      *GeneralDesc;
-  AUDIO_ASFormatTypeDescTypeDef   *FormatTypeDesc;
-}
-AUDIO_ASDescTypeDef;
-
 /*  Class-Specific VC Header Descriptor */
-
 typedef struct
 {
   uint8_t  bLength;
@@ -277,9 +190,9 @@ typedef struct
   uint8_t  bUnitID;                                        
   uint8_t  bSourceID;                                      
   uint8_t  bControlSize;                                   
-  uint8_t  bmaControls[AUDIO_MAX_CONTROLS_NBR][2];                                                                 
+  uint8_t  bmaControls[VIDEO_MAX_CONTROLS_NBR][2];                                                                 
 }
-AUDIO_FeatureDescTypeDef;
+VIDEO_FeatureDescTypeDef;
 
 /*  */
 typedef struct
@@ -292,7 +205,7 @@ typedef struct
   uint8_t  bSourceID0;  
   uint8_t  iSelector;                                                                   
 }
-AUDIO_SelectorDescTypeDef;
+VIDEO_SelectorDescTypeDef;
 
 
 //**********************************************************************
@@ -397,8 +310,8 @@ typedef struct
   VIDEO_HeaderDescTypeDef   *HeaderDesc;
   VIDEO_ITDescTypeDef       *InputTerminalDesc [VIDEO_MAX_NUM_IN_TERMINAL];
   VIDEO_OTDescTypeDef       *OutputTerminalDesc[VIDEO_MAX_NUM_OUT_TERMINAL];
-  AUDIO_FeatureDescTypeDef  *FeatureUnitDesc   [VIDEO_MAX_NUM_FEATURE_UNIT];
-  AUDIO_SelectorDescTypeDef *SelectorUnitDesc  [VIDEO_MAX_NUM_SELECTOR_UNIT];
+  VIDEO_FeatureDescTypeDef  *FeatureUnitDesc   [VIDEO_MAX_NUM_FEATURE_UNIT];
+  VIDEO_SelectorDescTypeDef *SelectorUnitDesc  [VIDEO_MAX_NUM_SELECTOR_UNIT];
 }
 VIDEO_VCDescTypeDef;
 
@@ -416,8 +329,6 @@ typedef struct
   
 }
 VIDEO_VSDescTypeDef;
-
-/*Class-Specific AC : Global descriptor*/
 
 typedef struct
 {
@@ -462,16 +373,16 @@ typedef __packed struct
   uint8_t     bMaxVersion;
 } VIDEO_ProbeTypedef;
 
-typedef struct _AUDIO_Process
+typedef struct _VIDEO_Process
 {
-  AUDIO_ReqStateTypeDef              req_state;  
-  AUDIO_ControlStateTypeDef          control_state; 
+  VIDEO_ReqStateTypeDef              req_state;  
+  VIDEO_ControlStateTypeDef          control_state; 
   VIDEO_StreamStateTypeDef           steam_in_state;
   
-  AUDIO_STREAMING_IN_HandleTypeDef   stream_in[AUDIO_MAX_AUDIO_STD_INTERFACE];
+  VIDEO_STREAMING_IN_HandleTypeDef   stream_in[VIDEO_MAX_VIDEO_STD_INTERFACE];
   VIDEO_ClassSpecificDescTypedef     class_desc;
   
-  AUDIO_InterfaceStreamPropTypeDef   camera;
+  VIDEO_InterfaceStreamPropTypeDef   camera;
   uint16_t                           mem[8];  
   uint8_t                            temp_feature;
 }
@@ -481,7 +392,7 @@ VIDEO_HandleTypeDef;
   * @}
   */ 
 
-/** @defgroup USBH_AUDIO_CORE_Exported_Defines
+/** @defgroup USBH_VIDEO_CORE_Exported_Defines
   * @{
   */ 
 
@@ -489,7 +400,7 @@ VIDEO_HandleTypeDef;
 /*Video Interface Subclass Codes*/
 #define CC_VIDEO                        0x0E
 
-/* A.2 Audio Interface Subclass Codes */
+/* Video Interface Subclass Codes */
 #define USB_SUBCLASS_VIDEOCONTROL	0x01
 #define USB_SUBCLASS_VIDEOSTREAMING	0x02
 #define USB_SUBCLASS_VIDEO_INTERFACE_COLLECTION         0x03
@@ -524,35 +435,11 @@ VIDEO_HandleTypeDef;
 #define UVC_VS_FRAME_FRAME_BASED        0x11
 #define UVC_VS_FORMAT_STREAM_BASED      0x12
 
-/*Audio Class-Specific Endpoint Descriptor Subtypes*/
-#define  EP_CONTROL_UNDEFINED             0x00
-#define  SAMPLING_FREQ_CONTROL            0x01
-#define  PITCH_CONTROL                    0x02
-
-/*Feature unit control selector*/
-#define FU_CONTROL_UNDEFINED                        0x00
-#define MUTE_CONTROL                                0x01
-#define VOLUME_CONTROL                              0x02
-#define BASS_CONTROL                                0x03
-#define MID_CONTROL                                 0x04
-#define TREBLE_CONTROL                              0x05
-#define GRAPHIC_EQUALIZER_CONTROL                   0x06
-#define AUTOMATIC_GAIN_CONTROL                      0x07
-#define DELAY_CONTROL                               0x08
-#define BASS_BOOST_CONTROL                          0x09
-#define LOUDNESS_CONTROL                            0x0A
-
-/*Terminal control selector*/
-#define TE_CONTROL_UNDEFINED                        0x00
-#define COPY_PROTECT_CONTROL                        0x01
-
-
-/* A.6 Audio Class-Specific AS Interface Descriptor Subtypes */
 #define UVC_AS_GENERAL			0x01
 #define UVC_FORMAT_TYPE			0x02
 #define UVC_FORMAT_SPECIFIC		0x03
 
-/* A.8 Audio Class-Specific Endpoint Descriptor Subtypes */
+/* Video Class-Specific Endpoint Descriptor Subtypes */
 #define UVC_EP_GENERAL			0x01
 
 /* Video Class-Specific Request Codes */
@@ -578,14 +465,6 @@ VIDEO_HandleTypeDef;
 
 #define UVC_GET_STAT			0xff
 
-/* MIDI - A.1 MS Class-Specific Interface Descriptor Subtypes */
-#define UVC_MS_HEADER			0x01
-#define UVC_MIDI_IN_JACK		0x02
-#define UVC_MIDI_OUT_JACK		0x03
-
-/* MIDI - A.1 MS Class-Specific Endpoint Descriptor Subtypes */
-#define UVC_MS_GENERAL			0x01
-
 /* Terminals - 2.1 USB Terminal Types */
 #define UVC_TERMINAL_UNDEFINED		0x100
 #define UVC_TERMINAL_STREAMING		0x101
@@ -595,39 +474,29 @@ VIDEO_HandleTypeDef;
   * @}
   */ 
 
-/** @defgroup USBH_AUDIO_CORE_Exported_Macros
+/** @defgroup USBH_VIDEO_CORE_Exported_Macros
   * @{
   */ 
 /**
   * @}
   */ 
 
-/** @defgroup USBH_AUDIO_CORE_Exported_Variables
+/** @defgroup USBH_VIDEO_CORE_Exported_Variables
   * @{
   */ 
 extern USBH_ClassTypeDef  VIDEO_Class;
-#define USBH_VIDEO_CLASS    &VIDEO_Class
+#define USBH_VIDEO_CLASS  &VIDEO_Class
 /**
   * @}
   */ 
 
-/** @defgroup USBH_AUDIO_CORE_Exported_FunctionsPrototype
+/** @defgroup USBH_VIDEO_CORE_Exported_FunctionsPrototype
   * @{
   */ 
-USBH_StatusTypeDef USBH_AUDIO_SetFrequency (USBH_HandleTypeDef *phost, 
+USBH_StatusTypeDef USBH_VIDEO_SetFrequency (USBH_HandleTypeDef *phost, 
                                             uint16_t sample_rate,
                                             uint8_t  channel_num,
                                             uint8_t data_width);
-  
-
-
-USBH_StatusTypeDef USBH_AUDIO_ChangeOutBuffer (USBH_HandleTypeDef *phost, uint8_t *buf);
-int32_t            USBH_AUDIO_GetOutOffset (USBH_HandleTypeDef *phost);
-
-void        USBH_AUDIO_FrequencySet(USBH_HandleTypeDef *phost);
-
-#define     USBH_AUDIO_FrequencySetCallback   USBH_AUDIO_FrequencySet
-void        USBH_AUDIO_BufferEmptyCallback(USBH_HandleTypeDef *phost);
 
 USBH_StatusTypeDef USBH_VS_SetCur(USBH_HandleTypeDef *phost, uint16_t request_type);
 USBH_StatusTypeDef USBH_VS_GetCur(USBH_HandleTypeDef *phost, uint16_t request_type);
@@ -641,7 +510,7 @@ USBH_StatusTypeDef USBH_VIDEO_Process(USBH_HandleTypeDef *phost);
 }
 #endif
 
-#endif /* __USBH_AUDIO_H */
+#endif /* __USBH_VIDEO_H */
 
 /**
   * @}
