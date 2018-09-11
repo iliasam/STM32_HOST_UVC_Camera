@@ -7,7 +7,7 @@
 
 #define LCD_FRAME_BUFFER        ((uint32_t)0xD0000000)
 
-#define LCD_DEFAULT_FONT        Font12x12
+#define LCD_DEFAULT_FONT        Font8x12
 
 
 LTDC_HandleTypeDef hltdc;
@@ -130,7 +130,7 @@ void lcd_clear(uint16_t color)
       HAL_DMA2D_PollForTransfer(&hdma2d, 10);
     }
   }
-  lcd_printing_x = 0;
+  lcd_printing_x = 10;
   lcd_printing_y = 0;
 }
 
@@ -247,6 +247,9 @@ void LCD_DrawChar(uint16_t Xpos, uint16_t Ypos, const uint16_t *c)
   */
 void LCD_DisplayChar(uint16_t Line, uint16_t Column, uint8_t Ascii)
 {
+  if (Ascii < 0x20)
+    return;
+  
   Ascii -= 32;
 
   LCD_DrawChar(Line, Column, &LCD_Currentfonts->table[Ascii * LCD_Currentfonts->Height]);
@@ -257,7 +260,7 @@ void lcd_print_char(char c)
   if (c == 10)
   {
     lcd_printing_y+= LCD_Currentfonts->Height;
-    lcd_printing_x = 0;
+    lcd_printing_x = 10;
     return;
   }
   LCD_DisplayChar(lcd_printing_y, lcd_printing_x, c);
@@ -266,7 +269,7 @@ void lcd_print_char(char c)
   if (lcd_printing_x > LCD_PIXEL_WIDTH)
   {
     lcd_printing_y+= LCD_Currentfonts->Height;
-    lcd_printing_x = 0;
+    lcd_printing_x = 110;
   }
 }
 

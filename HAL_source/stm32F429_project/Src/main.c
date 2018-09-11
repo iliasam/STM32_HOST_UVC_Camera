@@ -21,7 +21,10 @@ SDRAM_HandleTypeDef hsdram1;
 SDRAM_HandleTypeDef hsdram1;
 TIM_HandleTypeDef htim9;
 
-volatile uint16_t cnt = 0;
+uint32_t frame_cnt = 0;
+uint32_t prev_frame_cnt = 0;
+
+uint32_t timestamp_1sec = 0;
 
 volatile uint8_t uvc_framebuffer0[UVC_UNCOMP_FRAME_SIZE];
 volatile uint8_t uvc_framebuffer1[UVC_UNCOMP_FRAME_SIZE];
@@ -76,6 +79,19 @@ int main(void)
       uvc_parsing_new_frame_ready = 0;
       lcd_draw_yuyv_picture((uint8_t*)uvc_ready_framebuffer_ptr);
       video_stream_ready_update();
+      frame_cnt++;
+    }
+    
+    //Calculate FPS
+    if ((HAL_GetTick() - timestamp_1sec) > 1000)// 1000ms
+    {
+      uint8_t tmp_str[32];
+      timestamp_1sec = HAL_GetTick();
+      uint32_t fps = frame_cnt - prev_frame_cnt;
+      prev_frame_cnt = frame_cnt;
+      
+      sprintf((char*)tmp_str, "FPS: %d   \n", fps);
+      LCD_DisplayStringLine(LCD_PIXEL_HEIGHT - 20, tmp_str);
     }
   }
 }
