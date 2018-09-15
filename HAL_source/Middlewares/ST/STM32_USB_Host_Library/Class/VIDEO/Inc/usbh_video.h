@@ -19,6 +19,8 @@
    
 // Uncompressed image frame size in byte
 #define UVC_UNCOMP_FRAME_SIZE           (UVC_TARGET_WIDTH * UVC_TARGET_HEIGHT * 2)
+   
+#define UVC_MAX_FRAME_SIZE              UVC_UNCOMP_FRAME_SIZE
 
 /* States for VIDEO State Machine */
 typedef enum

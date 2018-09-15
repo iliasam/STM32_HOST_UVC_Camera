@@ -1188,8 +1188,8 @@ HAL_StatusTypeDef USB_HostInit (USB_OTG_GlobalTypeDef *USBx, USB_OTG_CfgTypeDef 
     uint32_t tx_non_period_size = 0x60U;
     uint32_t tx_periodic_size = 0x40U;
     */
-    uint32_t rx_fifo_size = 0x110U;
-    uint32_t tx_non_period_size = 0x20U;
+    uint32_t rx_fifo_size = 0x120U;
+    uint32_t tx_non_period_size = 0x10U;
     uint32_t tx_periodic_size = 0x10U;
       
     /* set Rx FIFO size */

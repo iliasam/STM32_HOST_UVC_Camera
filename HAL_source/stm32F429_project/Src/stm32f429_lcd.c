@@ -5,8 +5,6 @@
 #include "usbh_video.h"
 
 
-#define LCD_FRAME_BUFFER        ((uint32_t)0xD0000000)
-
 #define LCD_DEFAULT_FONT        Font8x12
 
 

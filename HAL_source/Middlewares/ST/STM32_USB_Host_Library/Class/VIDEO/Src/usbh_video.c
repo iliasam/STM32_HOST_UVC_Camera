@@ -88,7 +88,8 @@ static USBH_StatusTypeDef USBH_VIDEO_InterfaceInit (USBH_HandleTypeDef *phost)
       if( VIDEO_Handle->stream_in[index].valid == 1)
       {
         uint16_t ep_size = VIDEO_Handle->stream_in[index].EpSize;
-        if((ep_size > ep_size_in) && (ep_size < UVC_RX_FIFO_SIZE_LIMIT))
+        //if (ep_size == 512)
+        if ((ep_size > ep_size_in) && (ep_size < UVC_RX_FIFO_SIZE_LIMIT))
         {
           ep_size_in = ep_size;
           VIDEO_Handle->camera.interface = VIDEO_Handle->stream_in[index].interface;
@@ -132,7 +133,8 @@ static USBH_StatusTypeDef USBH_VIDEO_InterfaceInit (USBH_HandleTypeDef *phost)
                     phost->device.address,
                     phost->device.speed,
                     USB_EP_TYPE_ISOC,
-                    VIDEO_Handle->camera.EpSize); 
+                    1000);//WARNING!
+                    //VIDEO_Handle->camera.EpSize);//working ok 
       
       USBH_LL_SetToggle(phost, VIDEO_Handle->camera.Pipe, 0);  
     }
@@ -390,6 +392,7 @@ USBH_StatusTypeDef USBH_VS_SetCur(USBH_HandleTypeDef *phost, uint16_t request_ty
     ProbeParams.bFormatIndex = USBH_VIDEO_Best_bFormatIndex;             
     ProbeParams.bFrameIndex = USBH_VIDEO_Best_bFrameIndex;
     ProbeParams.dwFrameInterval = 333333;
+    //ProbeParams.dwFrameInterval = 2000000;//5 FPS
   }
   
   //H2D - host to device

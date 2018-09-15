@@ -13,6 +13,9 @@
 #include "stm32f429_sdram.h"
 #include "stm32f429_lcd.h"
 
+//Framefuffers to store raw data from camera - placed at SDRAM
+#define UVC_FRAMEBUFFER0        (LCD_FRAME_BUFFER + LCD_BUFFER_SIZE)
+#define UVC_FRAMEBUFFER1        (UVC_FRAMEBUFFER0 + UVC_MAX_FRAME_SIZE)
 
 
 /* Private variables ---------------------------------------------------------*/
@@ -26,8 +29,8 @@ uint32_t prev_frame_cnt = 0;
 
 uint32_t timestamp_1sec = 0;
 
-volatile uint8_t uvc_framebuffer0[UVC_UNCOMP_FRAME_SIZE];
-volatile uint8_t uvc_framebuffer1[UVC_UNCOMP_FRAME_SIZE];
+//volatile uint8_t uvc_framebuffer0[UVC_UNCOMP_FRAME_SIZE];
+//volatile uint8_t uvc_framebuffer1[UVC_UNCOMP_FRAME_SIZE];
 
 extern uint32_t uvc_frame_cnt;
 extern uint8_t uvc_parsing_new_frame_ready;
@@ -63,7 +66,8 @@ int main(void)
   MX_DMA2D_Init();
 
   SDRAM_Init();
-  video_stream_init_buffers((uint8_t*)uvc_framebuffer0, (uint8_t*)uvc_framebuffer1);
+  //video_stream_init_buffers((uint8_t*)uvc_framebuffer0, (uint8_t*)uvc_framebuffer1);
+  video_stream_init_buffers((uint8_t*)UVC_FRAMEBUFFER0, (uint8_t*)UVC_FRAMEBUFFER1);
   MX_TIM9_Init();
   
   lcd_clear(LCD_COLOR_WHITE);

@@ -13,7 +13,7 @@ CStepIntDis=_ 0
 stlinkserialNo=BBAD2C26
 stlinkfoundProbes=
 [DebugChecksum]
-Checksum=-1632627884
+Checksum=1478699929
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -83,6 +83,11 @@ ShowTimeLog=1
 SumEnabled=0
 ShowTimeSum=1
 SumSortOrder=0
+[Disassemble mode]
+mode=0
+[Breakpoints2]
+Bp0=_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Middlewares\ST\STM32_USB_Host_Library\Class\VIDEO\Src\usbh_video_stream_parsing.c}.128.13" 0 0 1 "" 0 "" 0
+Count=1
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
@@ -90,6 +95,9 @@ Category=_ 0
 [TermIOLog]
 LoggingEnabled=_ 0
 LogFile=_ ""
+[Aliases]
+Count=0
+SuppressDialog=0
 [DriverProfiling]
 Enabled=0
 Mode=3
@@ -100,11 +108,3 @@ Exclusions=
 Enabled=0
 [CallStackStripe]
 ShowTiming=1
-[Disassemble mode]
-mode=0
-[Breakpoints2]
-Bp0=_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Middlewares\ST\STM32_USB_Host_Library\Class\VIDEO\Src\usbh_video_stream_parsing.c}.128.13" 0 0 1 "" 0 "" 0
-Count=1
-[Aliases]
-Count=0
-SuppressDialog=0

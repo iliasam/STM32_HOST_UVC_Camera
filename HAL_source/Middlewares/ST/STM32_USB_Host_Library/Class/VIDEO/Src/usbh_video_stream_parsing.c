@@ -19,7 +19,7 @@ uint32_t uvc_header_cnt = 0;
 uint8_t uvc_prev_fid_state = 0;
 
 //size of previous packet
-uint16_t uvc_prev_packet_size = 0;
+uint32_t uvc_prev_packet_size = 0;
 
 uint32_t uvc_curr_frame_length = 0;
 uint32_t uvc_last_frame_length = 0;

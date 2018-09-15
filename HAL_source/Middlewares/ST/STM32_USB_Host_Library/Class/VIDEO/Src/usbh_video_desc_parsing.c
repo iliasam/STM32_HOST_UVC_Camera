@@ -5,6 +5,7 @@ uint16_t tmp_width;
 
 USBH_VIDEO_TargetFormat_t USBH_VIDEO_Target_Format = USBH_VIDEO_YUY2;
 int USBH_VIDEO_Target_Width = UVC_TARGET_WIDTH;// Width in pixels
+int USBH_VIDEO_Target_Height = UVC_TARGET_HEIGHT;// Height in pixels
 
 // Value of "bFormatIndex" for target settings (set in USBH_VIDEO_AnalyseFormatDescriptors)
 int  USBH_VIDEO_Best_bFormatIndex = -1;
@@ -271,7 +272,8 @@ void USBH_VIDEO_AnalyseFrameDescriptors(VIDEO_ClassSpecificDescTypedef *class_de
     {
       VIDEO_UncompFrameDescTypeDef* uncomp_frame_desc;
       uncomp_frame_desc = class_desc->vs_desc.UncompFrame[i];
-      if (LE16(uncomp_frame_desc->wWidth) == USBH_VIDEO_Target_Width)
+      if ((LE16(uncomp_frame_desc->wWidth) == USBH_VIDEO_Target_Width) && \
+        (LE16(uncomp_frame_desc->wHeight) == USBH_VIDEO_Target_Height))
       {
         //Found!
         USBH_VIDEO_Best_bFrameIndex = uncomp_frame_desc->bFrameIndex;

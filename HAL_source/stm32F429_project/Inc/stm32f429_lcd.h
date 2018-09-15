@@ -11,6 +11,8 @@
 #include "stm32f4xx_hal.h"
 #include "fonts.h"
    
+#define LCD_FRAME_BUFFER        ((uint32_t)0xD0000000)
+   
 #define LCD_TIMING_HSYNC        96
 #define LCD_TIMING_HBP          48
 #define LCD_TIMING_HFP          16
