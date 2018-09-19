@@ -3,7 +3,10 @@
 
 uint16_t tmp_width;
 
-USBH_VIDEO_TargetFormat_t USBH_VIDEO_Target_Format = USBH_VIDEO_YUY2;
+//USBH_VIDEO_TargetFormat_t USBH_VIDEO_Target_Format = USBH_VIDEO_YUY2;
+USBH_VIDEO_TargetFormat_t USBH_VIDEO_Target_Format = USBH_VIDEO_MJPEG;
+
+
 int USBH_VIDEO_Target_Width = UVC_TARGET_WIDTH;// Width in pixels
 int USBH_VIDEO_Target_Height = UVC_TARGET_HEIGHT;// Height in pixels
 
@@ -218,12 +221,13 @@ void USBH_VIDEO_AnalyseFormatDescriptors(VIDEO_ClassSpecificDescTypedef *class_d
   {
     if (class_desc->MJPEGFormatNum != 1)
     {
-      USBH_ErrLog("Not supported MJPEG descriptor number: %d", class_desc->MJPEGFormatNum);
+      USBH_ErrLog("Not supported MJPEG descriptors number: %d", class_desc->MJPEGFormatNum);
     }
     else
     {
-      //TODO
-      USBH_ErrLog("MJPEG mode not supperted yet");
+      VIDEO_MJPEGFormatDescTypeDef* mjpeg_format_desc;
+      mjpeg_format_desc = class_desc->vs_desc.MJPEGFormat[0];
+      USBH_VIDEO_Best_bFormatIndex = mjpeg_format_desc->bFormatIndex;
     }
     return;
   }
@@ -231,7 +235,7 @@ void USBH_VIDEO_AnalyseFormatDescriptors(VIDEO_ClassSpecificDescTypedef *class_d
   {
     if (class_desc->UncompFormatNum != 1)
     {
-      USBH_ErrLog("Not supported UNCOMP descriptor number: %d", class_desc->UncompFormatNum);
+      USBH_ErrLog("Not supported UNCOMP descriptors number: %d", class_desc->UncompFormatNum);
       return;
     }
     else
@@ -263,12 +267,21 @@ void USBH_VIDEO_AnalyseFrameDescriptors(VIDEO_ClassSpecificDescTypedef *class_de
     
   if (USBH_VIDEO_Target_Format == USBH_VIDEO_MJPEG)
   {
-    //TODO
-    USBH_ErrLog("MJPEG mode not supperted yet");
+    for (uint8_t i = 0; i < class_desc->MJPEGFrameNum; i++)
+    {
+      VIDEO_MJPEGFrameDescTypeDef* mjpeg_frame_desc;
+      mjpeg_frame_desc = class_desc->vs_desc.MJPEGFrame[i];
+      if ((LE16(mjpeg_frame_desc->wWidth) == USBH_VIDEO_Target_Width) && \
+        (LE16(mjpeg_frame_desc->wHeight) == USBH_VIDEO_Target_Height))
+      {
+        //Found!
+        USBH_VIDEO_Best_bFrameIndex = mjpeg_frame_desc->bFrameIndex;
+      }
+    }
   }
   else if (USBH_VIDEO_Target_Format == USBH_VIDEO_YUY2)
   {
-    for (uint8_t i=0; i < class_desc->UncompFrameNum; i++)
+    for (uint8_t i = 0; i < class_desc->UncompFrameNum; i++)
     {
       VIDEO_UncompFrameDescTypeDef* uncomp_frame_desc;
       uncomp_frame_desc = class_desc->vs_desc.UncompFrame[i];

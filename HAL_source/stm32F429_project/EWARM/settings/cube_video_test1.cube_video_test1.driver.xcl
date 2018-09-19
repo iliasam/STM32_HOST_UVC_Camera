@@ -10,7 +10,7 @@
 
 "--drv_verify_download" 
 
-"--semihosting=none" 
+"--semihosting" 
 
 "--device=STM32F429IG" 
 

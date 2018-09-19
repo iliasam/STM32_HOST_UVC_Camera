@@ -1057,12 +1057,30 @@
       </file>
     </group>
     <group>
+      <name>jpeg_lib</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\jpeg_lib\integer.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\jpeg_lib\mjpeg_dht.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\jpeg_lib\tjpgd.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\jpeg_lib\tjpgd.h</name>
+      </file>
+    </group>
+    <group>
       <name>User</name>
       <file>
         <name>$PROJ_DIR$\..\Src\fonts.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Src\main.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Src\mjpeg_decoding.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Src\stm32f429_lcd.c</name>

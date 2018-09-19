@@ -14,8 +14,8 @@
 #define UVC_RX_FIFO_SIZE_LIMIT          1024
    
 //Image width
-#define UVC_TARGET_WIDTH                160
-#define UVC_TARGET_HEIGHT               120
+#define UVC_TARGET_WIDTH                320
+#define UVC_TARGET_HEIGHT               240
    
 // Uncompressed image frame size in byte
 #define UVC_UNCOMP_FRAME_SIZE           (UVC_TARGET_WIDTH * UVC_TARGET_HEIGHT * 2)

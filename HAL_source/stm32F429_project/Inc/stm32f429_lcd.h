@@ -61,6 +61,8 @@ void LCD_DisplayChar(uint16_t Line, uint16_t Column, uint8_t Ascii);
 void LCD_DisplayStringLine(uint16_t Line, uint8_t *ptr);
 void lcd_print_char(char c);
 
+void lcd_set_pixel(uint16_t x, uint16_t y, uint16_t color);
+
 void lcd_draw_yuyv_picture(uint8_t* source);
 
 

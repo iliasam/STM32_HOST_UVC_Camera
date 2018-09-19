@@ -1,7 +1,6 @@
 #include "usbh_video_stream_parsing.h"
+#include "usbh_video_desc_parsing.h"
 #include "usbh_video.h"
-
-#include <yfuns.h> // Debugger macros
 
 #define UVC_HEADER_SIZE_POS             0
 #define UVC_HEADER_BIT_FIELD_POS        1
@@ -47,6 +46,8 @@ uint8_t* uvc_curr_framebuffer_ptr = NULL;
 
 //Pointer to a buffer that is FILLED now
 uint8_t* uvc_ready_framebuffer_ptr = NULL;
+
+extern USBH_VIDEO_TargetFormat_t USBH_VIDEO_Target_Format;
 
 //****************************************************************************
 
@@ -94,7 +95,11 @@ void video_stream_process_packet(uint16_t size)
     
     if (tmp_packet_framebuffer[UVC_HEADER_BIT_FIELD_POS] & UVC_HEADER_EOF_BIT)
     {
-      asm("nop"); //Detected last packet of the frame, not used now
+      if (USBH_VIDEO_Target_Format == USBH_VIDEO_MJPEG)
+      {
+        uvc_parsing_enabled = 0;
+        video_stream_switch_buffers();
+      }
     }
     
     if (uvc_curr_frame_length >= UVC_UNCOMP_FRAME_SIZE)

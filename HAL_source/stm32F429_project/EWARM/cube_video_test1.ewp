@@ -93,7 +93,7 @@
         </option>
         <option>
           <name>GenLowLevelInterface</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>GEndianModeBE</name>
@@ -323,6 +323,7 @@
           <state>$PROJ_DIR$\..\..\Drivers/CMSIS/Include</state>
           <state>$PROJ_DIR$\..\..\Drivers\STM32F4xx_HAL_Driver\Inc</state>
           <state>$PROJ_DIR$\..\..\Drivers\CMSIS\Include</state>
+          <state>$PROJ_DIR$\..\..\jpeg_lib</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -974,12 +975,30 @@
       </file>
     </group>
     <group>
+      <name>jpeg_lib</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\jpeg_lib\integer.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\jpeg_lib\mjpeg_dht.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\jpeg_lib\tjpgd.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\jpeg_lib\tjpgd.h</name>
+      </file>
+    </group>
+    <group>
       <name>User</name>
       <file>
         <name>$PROJ_DIR$\..\Src\fonts.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Src\main.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Src\mjpeg_decoding.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Src\stm32f429_lcd.c</name>

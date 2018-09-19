@@ -295,6 +295,12 @@ void LCD_DisplayStringLine(uint16_t Line, uint8_t *ptr)
   }
 }
 
+void lcd_set_pixel(uint16_t x, uint16_t y, uint16_t color)
+{
+  uint32_t pos = (y * LCD_PIXEL_WIDTH + x) * LCD_BYTES_IN_PIXEL;
+  *(__IO uint16_t*)(LCD_FRAME_BUFFER + pos) = color;
+}
+
 //Convert from 565 to 888
 uint32_t lcd_convert_to_color32(uint16_t color)
 {

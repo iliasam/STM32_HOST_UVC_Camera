@@ -12,6 +12,9 @@
 #include "usbh_video_stream_parsing.h"
 #include "stm32f429_sdram.h"
 #include "stm32f429_lcd.h"
+#include "mjpeg_decoding.h"
+
+#include <yfuns.h> // Debugger macros
 
 //Framefuffers to store raw data from camera - placed at SDRAM
 #define UVC_FRAMEBUFFER0        (LCD_FRAME_BUFFER + LCD_BUFFER_SIZE)
@@ -35,8 +38,7 @@ uint32_t timestamp_1sec = 0;
 extern uint32_t uvc_frame_cnt;
 extern uint8_t uvc_parsing_new_frame_ready;
 extern uint8_t* uvc_ready_framebuffer_ptr;
-
-uint8_t usb_host_initialized = 0;
+extern uint32_t uvc_curr_frame_length;
 
 
 /* Private function prototypes -----------------------------------------------*/
@@ -81,7 +83,23 @@ int main(void)
     if (uvc_parsing_new_frame_ready)
     {
       uvc_parsing_new_frame_ready = 0;
-      lcd_draw_yuyv_picture((uint8_t*)uvc_ready_framebuffer_ptr);
+      //lcd_draw_yuyv_picture((uint8_t*)uvc_ready_framebuffer_ptr);
+      mjpeg_decompression_and_draw((uint8_t*)uvc_ready_framebuffer_ptr, uvc_curr_frame_length);
+      
+      // End of this frame data
+      
+      /*
+      if (frame_cnt == 60)
+      {
+        int f1 = __open("D:/damp3.raw", _LLIO_CREAT | _LLIO_TRUNC | _LLIO_WRONLY | _LLIO_BINARY);
+        __write(f1, (uint8_t *)(uvc_ready_framebuffer_ptr), uvc_curr_frame_length);
+        __close(f1);
+      }
+      */
+      
+      
+      
+      
       video_stream_ready_update();
       frame_cnt++;
     }
