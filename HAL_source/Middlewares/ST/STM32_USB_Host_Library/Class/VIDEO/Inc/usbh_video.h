@@ -17,10 +17,19 @@
 #define UVC_TARGET_WIDTH                320
 #define UVC_TARGET_HEIGHT               240
    
+#define UVC_CAPTURE_MODE                USBH_VIDEO_MJPEG
+//#define UVC_CAPTURE_MODE                USBH_VIDEO_YUY2
+   
 // Uncompressed image frame size in byte
 #define UVC_UNCOMP_FRAME_SIZE           (UVC_TARGET_WIDTH * UVC_TARGET_HEIGHT * 2)
    
 #define UVC_MAX_FRAME_SIZE              UVC_UNCOMP_FRAME_SIZE
+   
+typedef enum
+{
+  USBH_VIDEO_MJPEG = 0,
+  USBH_VIDEO_YUY2,
+} USBH_VIDEO_TargetFormat_t;
 
 /* States for VIDEO State Machine */
 typedef enum

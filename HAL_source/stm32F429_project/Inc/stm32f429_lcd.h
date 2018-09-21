@@ -11,7 +11,9 @@
 #include "stm32f4xx_hal.h"
 #include "fonts.h"
    
-#define LCD_FRAME_BUFFER        ((uint32_t)0xD0000000)
+#define LCD_FRAME_BUFFER0        ((uint32_t)0xD0000000)
+#define LCD_FRAME_BUFFER1        (LCD_FRAME_BUFFER0 + LCD_BUFFER_SIZE)
+   
    
 #define LCD_TIMING_HSYNC        96
 #define LCD_TIMING_HBP          48
@@ -44,6 +46,9 @@
 #define  LCD_BUFFER_SIZE    ((uint32_t)(LCD_PIXELS_CNT * LCD_BYTES_IN_PIXEL))
    
 void MX_LTDC_Init(void);
+void lcd_switch_to_single_buffer_mode(void);
+void lcd_switch_buffer(void);
+
 void lcd_draw_test_picture(void);
 
 void LCD_DrawFullRect(uint16_t xpos, uint16_t ypos, uint16_t width, uint16_t height, uint16_t color);
@@ -64,8 +69,6 @@ void lcd_print_char(char c);
 void lcd_set_pixel(uint16_t x, uint16_t y, uint16_t color);
 
 void lcd_draw_yuyv_picture(uint8_t* source);
-
-
 uint32_t lcd_convert_to_color32(uint16_t color);
    
 #endif /* __STM32F429_LCD_H */

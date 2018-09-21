@@ -4,12 +4,13 @@
 
 #include "usbh_video.h"
 
-
 #define LCD_DEFAULT_FONT        Font8x12
-
 
 LTDC_HandleTypeDef hltdc;
 extern DMA2D_HandleTypeDef hdma2d;
+
+uint32_t lcd_current_framebuffer = LCD_FRAME_BUFFER0;//Buffer that is drawn now
+uint32_t lcd_shadow_framebuffer = LCD_FRAME_BUFFER1;//Shadow buffer
 
 extern volatile uint8_t tmp_packet_framebuffer[UVC_RX_FIFO_SIZE_LIMIT];
 
@@ -68,7 +69,7 @@ void MX_LTDC_Init(void)
   pLayerCfg.Alpha0 = 0;
   pLayerCfg.BlendingFactor1 = LTDC_BLENDING_FACTOR1_CA;
   pLayerCfg.BlendingFactor2 = LTDC_BLENDING_FACTOR2_CA;
-  pLayerCfg.FBStartAdress = LCD_FRAME_BUFFER;
+  pLayerCfg.FBStartAdress = lcd_current_framebuffer;
   pLayerCfg.ImageWidth = LCD_PIXEL_WIDTH;
   pLayerCfg.ImageHeight = LCD_PIXEL_HEIGHT;
   pLayerCfg.Backcolor.Blue = 0;
@@ -82,6 +83,30 @@ void MX_LTDC_Init(void)
   //HAL_LTDC_EnableDither(&hltdc);
 
   LCD_SetFont(&LCD_DEFAULT_FONT); /* Set default font */  
+}
+
+void lcd_switch_buffer(void)
+{
+  if (lcd_current_framebuffer == LCD_FRAME_BUFFER0)
+  {
+    lcd_current_framebuffer = LCD_FRAME_BUFFER1;
+    lcd_shadow_framebuffer = LCD_FRAME_BUFFER0;
+  }
+  else
+  {
+    lcd_current_framebuffer = LCD_FRAME_BUFFER0;
+    lcd_shadow_framebuffer = LCD_FRAME_BUFFER1;
+  }
+  LTDC_Layer1->CFBAR = lcd_current_framebuffer;
+  HAL_LTDC_Relaod(&hltdc, LTDC_SRCR_VBR);
+}
+
+void lcd_switch_to_single_buffer_mode(void)
+{
+  lcd_current_framebuffer = LCD_FRAME_BUFFER0;
+  lcd_shadow_framebuffer = LCD_FRAME_BUFFER0;
+  LTDC_Layer1->CFBAR = lcd_current_framebuffer;
+  HAL_LTDC_Relaod(&hltdc, LTDC_SRCR_VBR);
 }
 
 /**
@@ -124,7 +149,7 @@ void lcd_clear(uint16_t color)
   hdma2d.Init.OutputOffset = 0;
   if(HAL_DMA2D_Init(&hdma2d) == HAL_OK)
   {
-    if (HAL_DMA2D_Start(&hdma2d, color32, LCD_FRAME_BUFFER,
+    if (HAL_DMA2D_Start(&hdma2d, color32, lcd_shadow_framebuffer,
         LCD_PIXEL_WIDTH, LCD_PIXEL_HEIGHT) == HAL_OK)
     {
       HAL_DMA2D_PollForTransfer(&hdma2d, 10);
@@ -223,12 +248,12 @@ void LCD_DrawChar(uint16_t Xpos, uint16_t Ypos, const uint16_t *c)
         (((c[index] & (0x1 << counter)) == 0x00)&&(LCD_Currentfonts->Width > 12 )))
       {
           /* Write data value to all SDRAM memory */
-         *(__IO uint16_t*) (LCD_FRAME_BUFFER + (2*Xaddress) + xpos) = CurrentBackColor;
+         *(__IO uint16_t*) (lcd_shadow_framebuffer + (2*Xaddress) + xpos) = CurrentBackColor;
       }
       else
       {
           /* Write data value to all SDRAM memory */
-         *(__IO uint16_t*) (LCD_FRAME_BUFFER + (2*Xaddress) + xpos) = CurrentTextColor;         
+         *(__IO uint16_t*) (lcd_shadow_framebuffer + (2*Xaddress) + xpos) = CurrentTextColor;         
       }
       Xaddress++;
     }
@@ -300,7 +325,7 @@ void LCD_DisplayStringLine(uint16_t Line, uint8_t *ptr)
 void lcd_set_pixel(uint16_t x, uint16_t y, uint16_t color)
 {
   uint32_t pos = (y * LCD_PIXEL_WIDTH + x) * LCD_BYTES_IN_PIXEL;
-  *(__IO uint16_t*)(LCD_FRAME_BUFFER + pos) = color;
+  *(__IO uint16_t*)(lcd_shadow_framebuffer + pos) = color;
 }
 
 //Convert from 565 to 888
@@ -319,7 +344,7 @@ uint32_t lcd_convert_to_color32(uint16_t color)
 
 void lcd_draw_test_picture(void)
 {
-  uint16_t* test_ptr = (uint16_t*)LCD_FRAME_BUFFER;
+  uint16_t* test_ptr = (uint16_t*)lcd_shadow_framebuffer;
   
   uint16_t x;
   uint16_t y;
@@ -348,7 +373,7 @@ void lcd_draw_yuyv_picture(uint8_t* source)
   
   for (y = 0; y < UVC_TARGET_HEIGHT; y++)
   {
-    uint32_t offset = LCD_FRAME_BUFFER + y * LCD_PIXEL_WIDTH * LCD_BYTES_IN_PIXEL;
+    uint32_t offset = lcd_shadow_framebuffer + y * LCD_PIXEL_WIDTH * LCD_BYTES_IN_PIXEL;
     image_ptr = (uint16_t*)offset;
     
     for (x = 0; x < UVC_TARGET_WIDTH; x+= 2)

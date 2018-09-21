@@ -1,11 +1,7 @@
 #include "usbh_video_desc_parsing.h"
 #include "usbh_conf.h"
 
-uint16_t tmp_width;
-
-//USBH_VIDEO_TargetFormat_t USBH_VIDEO_Target_Format = USBH_VIDEO_YUY2;
-USBH_VIDEO_TargetFormat_t USBH_VIDEO_Target_Format = USBH_VIDEO_MJPEG;
-
+USBH_VIDEO_TargetFormat_t USBH_VIDEO_Target_Format = UVC_CAPTURE_MODE;
 
 int USBH_VIDEO_Target_Width = UVC_TARGET_WIDTH;// Width in pixels
 int USBH_VIDEO_Target_Height = UVC_TARGET_HEIGHT;// Height in pixels

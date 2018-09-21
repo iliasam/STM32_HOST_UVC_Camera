@@ -3,12 +3,6 @@
 
 #include "usbh_video.h"
 
-typedef enum
-{
-  USBH_VIDEO_MJPEG = 0,
-  USBH_VIDEO_YUY2,
-} USBH_VIDEO_TargetFormat_t;
-
 USBH_StatusTypeDef USBH_VIDEO_FindStreamingIN(USBH_HandleTypeDef *phost);
 USBH_StatusTypeDef USBH_VIDEO_ParseCSDescriptors(USBH_HandleTypeDef *phost);
 USBH_StatusTypeDef ParseCSDescriptors(VIDEO_ClassSpecificDescTypedef *class_desc, 

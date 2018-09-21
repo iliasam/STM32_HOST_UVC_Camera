@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   * @file    stm32f4xx_hal_hcd.c
-  * @author  MCD Application Team + ILIASAM
+  * @author  MCD Application Team
   * @version V1.6.0
   * @date    04-November-2016
   * @brief   HCD HAL module driver.
@@ -70,6 +70,7 @@
   *
   ******************************************************************************
   */ 
+//ILIASAM patched
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
