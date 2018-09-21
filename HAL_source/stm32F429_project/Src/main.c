@@ -77,7 +77,6 @@ int main(void)
     
   while (1)
   {
-    HAL_GPIO_TogglePin(GPIOI, GPIO_PIN_6);
     MX_USB_HOST_Process();
     
     if (uvc_parsing_new_frame_ready)
@@ -91,17 +90,17 @@ int main(void)
       /*
       if (frame_cnt == 60)
       {
-        int f1 = __open("D:/damp3.raw", _LLIO_CREAT | _LLIO_TRUNC | _LLIO_WRONLY | _LLIO_BINARY);
-        __write(f1, (uint8_t *)(uvc_ready_framebuffer_ptr), uvc_curr_frame_length);
+        int f1 = __open("D:/damp4.raw", _LLIO_CREAT | _LLIO_TRUNC | _LLIO_WRONLY | _LLIO_BINARY);
+        //__write(f1, (uint8_t *)(uvc_ready_framebuffer_ptr), uvc_curr_frame_length);
+        __write(f1, (uint8_t *)(LCD_FRAME_BUFFER), LCD_BUFFER_SIZE);
         __close(f1);
       }
       */
       
       
-      
-      
       video_stream_ready_update();
       frame_cnt++;
+      HAL_GPIO_TogglePin(GPIOI, GPIO_PIN_6);
     }
     
     //Calculate FPS

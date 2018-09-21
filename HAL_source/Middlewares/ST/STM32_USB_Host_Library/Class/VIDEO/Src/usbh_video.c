@@ -391,6 +391,7 @@ USBH_StatusTypeDef USBH_VS_SetCur(USBH_HandleTypeDef *phost, uint16_t request_ty
     ProbeParams.bmHint = 1;
     ProbeParams.bFormatIndex = USBH_VIDEO_Best_bFormatIndex;             
     ProbeParams.bFrameIndex = USBH_VIDEO_Best_bFrameIndex;
+    //Maximum framerate can be selected here
     ProbeParams.dwFrameInterval = 333333;
     //ProbeParams.dwFrameInterval = 2000000;//5 FPS
   }

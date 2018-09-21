@@ -40,7 +40,7 @@
     <Windows>
       
       
-    <Wnd0>
+    <Wnd1>
         <Tabs>
           <Tab>
             <Identity>TabID-32100-29192</Identity>
@@ -48,11 +48,11 @@
             <Factory>Workspace</Factory>
             <Session>
               
-            <NodeDict><ExpandedNode>cube_video_test1</ExpandedNode><ExpandedNode>cube_video_test1/Application</ExpandedNode><ExpandedNode>cube_video_test1/Application/User</ExpandedNode><ExpandedNode>cube_video_test1/Application/jpeg_lib</ExpandedNode><ExpandedNode>cube_video_test1/Drivers</ExpandedNode><ExpandedNode>cube_video_test1/Middlewares</ExpandedNode><ExpandedNode>cube_video_test1/Middlewares/USB_Host_Library</ExpandedNode></NodeDict></Session>
+            <NodeDict><ExpandedNode>cube_video_test1</ExpandedNode><ExpandedNode>cube_video_test1/Application</ExpandedNode><ExpandedNode>cube_video_test1/Application/User</ExpandedNode><ExpandedNode>cube_video_test1/Drivers</ExpandedNode><ExpandedNode>cube_video_test1/Middlewares</ExpandedNode><ExpandedNode>cube_video_test1/Middlewares/USB_Host_Library</ExpandedNode></NodeDict></Session>
           </Tab>
         </Tabs>
         
-      <SelectedTab>0</SelectedTab></Wnd0><Wnd2>
+      <SelectedTab>0</SelectedTab></Wnd1><Wnd3>
         <Tabs>
           <Tab>
             <Identity>TabID-27917-29270</Identity>
@@ -80,20 +80,20 @@
           </Tab>
         </Tabs>
         
-      <SelectedTab>0</SelectedTab></Wnd2></Windows>
+      <SelectedTab>0</SelectedTab></Wnd3></Windows>
     <Editor>
       
       
       
       
-    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Src\main.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>40</YPos2><SelStart2>1598</SelStart2><SelEnd2>1598</SelEnd2></Tab><ActiveTab>0</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Src\mjpeg_decoding.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>44</YPos2><SelStart2>1265</SelStart2><SelEnd2>1265</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\jpeg_lib\tjpgd.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>849</YPos2><SelStart2>32508</SelStart2><SelEnd2>32508</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\jpeg_lib\integer.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>1</YPos2><SelStart2>543</SelStart2><SelEnd2>543</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\jpeg_lib\tjpgd.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>14</YPos2><SelStart2>547</SelStart2><SelEnd2>547</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\Middlewares\ST\STM32_USB_Host_Library\Class\VIDEO\Inc\usbh_video.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>6</YPos2><SelStart2>851</SelStart2><SelEnd2>851</SelEnd2></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Src\main.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>40</YPos2><SelStart2>1598</SelStart2><SelEnd2>1598</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Src\stm32f429_lcd.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>72</YPos2><SelStart2>2732</SelStart2><SelEnd2>2732</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Inc\stm32f429_lcd.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>3</YPos2><SelStart2>363</SelStart2><SelEnd2>363</SelEnd2></Tab><ActiveTab>2</ActiveTab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
     <Positions>
       
       
       
       
       
-    <Top><Row0><Sizes><Toolbar-056D68A8><key>iaridepm.enu1</key></Toolbar-056D68A8></Sizes></Row0><Row1><Sizes/></Row1></Top><Left><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>509</Bottom><Right>339</Right><x>-2</x><y>-2</y><xscreen>206</xscreen><yscreen>212</yscreen><sizeHorzCX>134115</sizeHorzCX><sizeHorzCY>271447</sizeHorzCY><sizeVertCX>222005</sizeVertCX><sizeVertCY>654289</sizeVertCY></Rect></Wnd0></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd2><Rect><Top>-2</Top><Left>-2</Left><Bottom>227</Bottom><Right>1538</Right><x>-2</x><y>-2</y><xscreen>1540</xscreen><yscreen>229</yscreen><sizeHorzCX>1002604</sizeHorzCX><sizeHorzCY>293214</sizeHorzCY><sizeVertCX>134115</sizeVertCX><sizeVertCY>271447</sizeVertCY></Rect></Wnd2></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+    <Top><Row0><Sizes><Toolbar-052FB3C0><key>iaridepm.enu1</key></Toolbar-052FB3C0></Sizes></Row0><Row1><Sizes/></Row1></Top><Left><Row0><Sizes><Wnd1><Rect><Top>-2</Top><Left>-2</Left><Bottom>509</Bottom><Right>339</Right><x>-2</x><y>-2</y><xscreen>206</xscreen><yscreen>212</yscreen><sizeHorzCX>134115</sizeHorzCX><sizeHorzCY>271447</sizeHorzCY><sizeVertCX>222005</sizeVertCX><sizeVertCY>654289</sizeVertCY></Rect></Wnd1></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd3><Rect><Top>-2</Top><Left>-2</Left><Bottom>227</Bottom><Right>1538</Right><x>-2</x><y>-2</y><xscreen>1540</xscreen><yscreen>229</yscreen><sizeHorzCX>1002604</sizeHorzCX><sizeHorzCY>293214</sizeHorzCY><sizeVertCX>134115</sizeVertCX><sizeVertCY>271447</sizeVertCY></Rect></Wnd3></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
   </Desktop>
 </Workspace>
 

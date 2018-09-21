@@ -78,6 +78,8 @@ void MX_LTDC_Init(void)
   {
     Error_Handler();
   }
+  
+  //HAL_LTDC_EnableDither(&hltdc);
 
   LCD_SetFont(&LCD_DEFAULT_FONT); /* Set default font */  
 }
