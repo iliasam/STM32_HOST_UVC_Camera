@@ -108,33 +108,35 @@ static void USBH_UserProcess  (USBH_HandleTypeDef *phost, uint8_t id)
   { 
     
   case HOST_USER_CLASS_SELECTED:
-    USBH_StatusTypeDef status;
-    status = USBH_VS_SetCur(phost, VS_PROBE_CONTROL << 8);
-    status = USBH_VS_GetCur(phost, VS_PROBE_CONTROL << 8);
-    if (status == USBH_OK)
     {
-      USBH_VS_SetCur(phost, VS_COMMIT_CONTROL << 8);
-      USBH_VS_GetCur(phost, VS_COMMIT_CONTROL << 8);
+      USBH_StatusTypeDef status;
+      status = USBH_VS_SetCur(phost, VS_PROBE_CONTROL << 8);
+      status = USBH_VS_GetCur(phost, VS_PROBE_CONTROL << 8);
+      if (status == USBH_OK)
+      {
+        USBH_VS_SetCur(phost, VS_COMMIT_CONTROL << 8);
+        USBH_VS_GetCur(phost, VS_COMMIT_CONTROL << 8);
+      }
     }
-  break;
+    break;
     
   case HOST_USER_SELECT_CONFIGURATION:
-  break;
+    break;
     
   case HOST_USER_DISCONNECTION:
-  Appli_state = APPLICATION_DISCONNECT;
-  break;
+    Appli_state = APPLICATION_DISCONNECT;
+    break;
     
   case HOST_USER_CLASS_ACTIVE:
-  Appli_state = APPLICATION_READY;
-  break;
-
+    Appli_state = APPLICATION_READY;
+    break;
+    
   case HOST_USER_CONNECTION:
-  Appli_state = APPLICATION_START;
-  break;
-
+    Appli_state = APPLICATION_START;
+    break;
+    
   default:
-  break; 
+    break; 
   }
   /* USER CODE END 2 */
 }

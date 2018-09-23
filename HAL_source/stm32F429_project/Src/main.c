@@ -1,5 +1,7 @@
-//Important - I have changed SDRAM GPIO pins settings in HAL_FMC_MspInit() 
-//Dont't forget aboun HEAP size
+// Example for STM23f429 (Core429I board)
+// Important - I have changed SDRAM GPIO pins settings in HAL_FMC_MspInit() 
+// Dont't forget about HEAP size
+// You need to set needed UVC mode in "usbh_video.h" file
 
 /* Includes ------------------------------------------------------------------*/
 #include <stdio.h>
@@ -17,7 +19,7 @@
 
 #include <yfuns.h> // Debugger macros
 
-//Framefuffers to store raw data from camera - placed at SDRAM after LCD framebuffers
+//Framebuffers to store raw data from camera - placed at the SDRAM after LCD framebuffers
 #define UVC_FRAMEBUFFER0        (LCD_FRAME_BUFFER1 + LCD_BUFFER_SIZE)
 #define UVC_FRAMEBUFFER1        (UVC_FRAMEBUFFER0 + UVC_MAX_FRAME_SIZE)
 
@@ -28,13 +30,13 @@ SDRAM_HandleTypeDef hsdram1;
 SDRAM_HandleTypeDef hsdram1;
 TIM_HandleTypeDef htim9;
 
-uint32_t frame_cnt = 0;
+uint32_t frame_cnt = 0;//Drawn frames counter
 uint32_t prev_frame_cnt = 0;
 
 uint32_t timestamp_1sec = 0;
+uint8_t last_fps = 0;
 
-//volatile uint8_t uvc_framebuffer0[UVC_UNCOMP_FRAME_SIZE];
-//volatile uint8_t uvc_framebuffer1[UVC_UNCOMP_FRAME_SIZE];
+uint8_t frame_received_flag = 0;
 
 extern uint32_t uvc_frame_cnt;
 extern uint8_t uvc_parsing_new_frame_ready;
@@ -51,7 +53,7 @@ static void MX_DMA2D_Init(void);
 void MX_USB_HOST_Process(void);
 static void MX_TIM9_Init(void);
 
-volatile uint32_t decode_time = 0;
+volatile uint32_t decode_time = 0;//debug only
 
 int main(void)
 {
@@ -71,14 +73,10 @@ int main(void)
   MX_DMA2D_Init();
 
   SDRAM_Init();
-  //video_stream_init_buffers((uint8_t*)uvc_framebuffer0, (uint8_t*)uvc_framebuffer1);
   video_stream_init_buffers((uint8_t*)UVC_FRAMEBUFFER0, (uint8_t*)UVC_FRAMEBUFFER1);
   MX_TIM9_Init();
   lcd_switch_to_single_buffer_mode();
   
-  lcd_clear(LCD_COLOR_WHITE);
-  lcd_switch_buffer();
-  lcd_switch_buffer();
   lcd_clear(LCD_COLOR_WHITE);
   
   printf("Waiting for UVC Camera\n");
@@ -91,6 +89,18 @@ int main(void)
     {
       uvc_parsing_new_frame_ready = 0;
       
+      if (frame_received_flag == 0)
+      {
+        //First frame from camera - switch to LCD dual buffer mode
+        frame_received_flag = 1;
+        HAL_Delay(1000);
+        
+        lcd_clear(LCD_COLOR_WHITE);//clear buffer0
+        lcd_switch_buffer();
+        lcd_switch_buffer();//make shadow buffer = buffer1
+        lcd_clear(LCD_COLOR_WHITE);//clear buffer1
+      }
+      
       uint32_t start_decode_time = HAL_GetTick();
       //Draw captured image
       if (USBH_VIDEO_Target_Format == USBH_VIDEO_YUY2)
@@ -101,41 +111,31 @@ int main(void)
       {
         mjpeg_decompression_and_draw((uint8_t*)uvc_ready_framebuffer_ptr, uvc_ready_frame_length);
       }
-      decode_time = HAL_GetTick() - start_decode_time;
+      decode_time = HAL_GetTick() - start_decode_time;//debug only
+      
+      //Draw FPS
+      uint8_t tmp_str[32];
+      sprintf((char*)tmp_str, "FPS: %d   \n", last_fps);
+      LCD_DisplayStringLine(LCD_PIXEL_HEIGHT - 20, tmp_str);
       
       lcd_switch_buffer();
       
-      /*
-      if (frame_cnt == 60)
-      {
-        int f1 = __open("D:/damp4.raw", _LLIO_CREAT | _LLIO_TRUNC | _LLIO_WRONLY | _LLIO_BINARY);
-        //__write(f1, (uint8_t *)(uvc_ready_framebuffer_ptr), uvc_ready_frame_length);
-        __write(f1, (uint8_t *)(LCD_FRAME_BUFFER), LCD_BUFFER_SIZE);
-        __close(f1);
-      }
-      */
-
       video_stream_ready_update();
       frame_cnt++;
-      HAL_GPIO_TogglePin(GPIOI, GPIO_PIN_6);
-        
+      HAL_GPIO_TogglePin(GPIOI, GPIO_PIN_6);//Blink LED
     }
     
     //Calculate FPS
     if ((HAL_GetTick() - timestamp_1sec) > 1000)// 1000ms
     {
-      uint8_t tmp_str[32];
       timestamp_1sec = HAL_GetTick();
-      uint32_t fps = frame_cnt - prev_frame_cnt;
+      last_fps = frame_cnt - prev_frame_cnt;
       prev_frame_cnt = frame_cnt;
-      
-      sprintf((char*)tmp_str, "FPS: %d   \n", fps);
-      LCD_DisplayStringLine(LCD_PIXEL_HEIGHT - 20, tmp_str);
     }
   }
 }
 
-//This is needed bacause UVC processing must not be interrrupted
+// This is needed bacause UVC processing must not be interrrupted
 void timer9_interrupt_process(void)
 {
   USB_HOST_fast_class_call();
@@ -437,8 +437,8 @@ static void MX_GPIO_Init(void)
 // Comment to use semihosting
 int putchar(int c)
 {
-  //lcd_print_char(c);
-  return c;    
+  lcd_print_char(c);
+  return c;
 }
 
 

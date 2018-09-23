@@ -1,3 +1,4 @@
+//This file is needed if you need MJPEG stream decoding
 #include "mjpeg_decoding.h"
 #include "tjpgd.h"
 #include "stm32f429_lcd.h"
@@ -19,6 +20,7 @@ IODEV iodev;	// Identifier of the decompression session (depends on application)
 
 BYTE jdwork[3100];//TMP buffer
 
+//Read data from raw MJPEG framebuffer
 //ndata - number of bytes to read from source buffer
 //buff - destination
 UINT input_func (JDEC * jd, BYTE* buff, UINT ndata) 
@@ -41,6 +43,7 @@ UINT input_func (JDEC * jd, BYTE* buff, UINT ndata)
   return ndata;
 }
 
+//Draw rectangle with part of of the image
 //bitmap - decoded data
 //rect - rectangle coordinates
 UINT output_func(JDEC* jd, void* bitmap, JRECT* rect) 
@@ -58,10 +61,13 @@ UINT output_func(JDEC* jd, void* bitmap, JRECT* rect)
       lcd_set_pixel(x, y, bmp[i++]);
     }
   }
+  // It would be better to use DMA2D here.
   
   return 1; //return decoding
 }
 
+//Decompress and draw at LCD single MJPEG frame from "source"
+//"source_size" - length of raw image size in bytes
 void mjpeg_decompression_and_draw(uint8_t* source, uint32_t source_size)
 {
   iodev.jpic = source;

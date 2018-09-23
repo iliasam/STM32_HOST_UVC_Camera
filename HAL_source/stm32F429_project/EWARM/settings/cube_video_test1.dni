@@ -13,7 +13,7 @@ CStepIntDis=_ 0
 stlinkserialNo=BBAD2C26
 stlinkfoundProbes=
 [DebugChecksum]
-Checksum=321292913
+Checksum=-1804263602
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0

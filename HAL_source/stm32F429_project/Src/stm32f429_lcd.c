@@ -101,6 +101,7 @@ void lcd_switch_buffer(void)
   HAL_LTDC_Relaod(&hltdc, LTDC_SRCR_VBR);
 }
 
+//Switch this driver to be work with single framebuffer (LCD_FRAME_BUFFER0)
 void lcd_switch_to_single_buffer_mode(void)
 {
   lcd_current_framebuffer = LCD_FRAME_BUFFER0;

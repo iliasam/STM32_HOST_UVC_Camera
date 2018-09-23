@@ -36,7 +36,7 @@ USBH_ClassTypeDef  VIDEO_Class =
 // This struct is used for PROBE control request ( Setup Packet )
 VIDEO_ProbeTypedef ProbeParams;
 
-
+//Buffer to store received UVC data packet
 volatile uint8_t tmp_packet_framebuffer[UVC_RX_FIFO_SIZE_LIMIT];
 
 
@@ -326,7 +326,7 @@ USBH_StatusTypeDef USBH_VIDEO_Process(USBH_HandleTypeDef *phost)
   */
 static USBH_StatusTypeDef USBH_VIDEO_InputStream (USBH_HandleTypeDef *phost)
 {
-  // Called from USBH_VIDEO_Process
+  // Called from USB_HOST_fast_class_call
   USBH_StatusTypeDef status = USBH_BUSY;
   VIDEO_HandleTypeDef *VIDEO_Handle =  (VIDEO_HandleTypeDef*) phost->pActiveClass->pData;
   USBH_URBStateTypeDef result;
@@ -394,7 +394,7 @@ USBH_StatusTypeDef USBH_VS_SetCur(USBH_HandleTypeDef *phost, uint16_t request_ty
     ProbeParams.bFrameIndex = USBH_VIDEO_Best_bFrameIndex;
     
     //Maximum framerate can be selected here
-    ProbeParams.dwFrameInterval = 333333;
+    ProbeParams.dwFrameInterval = 333333;//30 FPS
     //ProbeParams.dwFrameInterval = 2000000;//5 FPS
   }
   

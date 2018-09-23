@@ -14,16 +14,18 @@
 #define UVC_RX_FIFO_SIZE_LIMIT          1024
    
 //Image width
-#define UVC_TARGET_WIDTH                320
-#define UVC_TARGET_HEIGHT               240
+#define UVC_TARGET_WIDTH                160
+#define UVC_TARGET_HEIGHT               120
    
-#define UVC_CAPTURE_MODE                USBH_VIDEO_MJPEG
-//#define UVC_CAPTURE_MODE                USBH_VIDEO_YUY2
+//#define UVC_CAPTURE_MODE                USBH_VIDEO_MJPEG
+#define UVC_CAPTURE_MODE                USBH_VIDEO_YUY2
    
 // Uncompressed image frame size in byte
 #define UVC_UNCOMP_FRAME_SIZE           (UVC_TARGET_WIDTH * UVC_TARGET_HEIGHT * 2)
    
 #define UVC_MAX_FRAME_SIZE              UVC_UNCOMP_FRAME_SIZE
+//TODO - UVC_MAX_FRAME_SIZE for MJPEG mode can be smaller.
+//Needed calue is send by camera - see "USBH_VS_GetCur" - dwMaxVideoFrameSize
    
 typedef enum
 {
@@ -134,10 +136,8 @@ VIDEO_InterfaceStreamPropTypeDef;
 #define VIDEO_MAX_MJPEG_FORMAT             3
 #define VIDEO_MAX_MJPEG_FRAME_D            10
 
-#define VIDEO_MAX_UNCOMP_FORMAT             3
-#define VIDEO_MAX_UNCOMP_FRAME_D            10
-
-
+#define VIDEO_MAX_UNCOMP_FORMAT            3
+#define VIDEO_MAX_UNCOMP_FRAME_D           10
 
 #define VIDEO_MAX_SAMFREQ_NBR              5
 #define VIDEO_MAX_INTERFACE_NBR            5
@@ -522,21 +522,4 @@ USBH_StatusTypeDef USBH_VIDEO_Process(USBH_HandleTypeDef *phost);
 #endif
 
 #endif /* __USBH_VIDEO_H */
-
-/**
-  * @}
-  */ 
-
-/**
-  * @}
-  */ 
-
-/**
-  * @}
-  */ 
-
-/**
-  * @}
-  */ 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 

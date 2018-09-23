@@ -14,7 +14,7 @@
 /
 /-----------------------------------------------------------------------------/
 / Oct 04,'11 R0.01  First release.
-/ Patched by iliasam for MJPEG support
+/ Patched by ILIASAM for MJPEG support
 /----------------------------------------------------------------------------*/
 
 #include "tjpgd.h"

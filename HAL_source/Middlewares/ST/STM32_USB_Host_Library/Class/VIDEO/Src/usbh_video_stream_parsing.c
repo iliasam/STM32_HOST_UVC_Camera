@@ -1,3 +1,11 @@
+// Parsing UVC data packets
+// Received image stored at one of two framebuffers
+// When a new frame received, "uvc_parsing_new_frame_ready" flag is set
+// This flag MUST be cleared by external software
+// External software can read raw captured image dat from "uvc_ready_framebuffer_ptr"
+// Size of that data is "uvc_ready_frame_length"
+// After external software compete data processing, it MUST call video_stream_ready_update()
+
 #include "usbh_video_stream_parsing.h"
 #include "usbh_video_desc_parsing.h"
 #include "usbh_video.h"
@@ -23,6 +31,7 @@ uint32_t uvc_curr_frame_length = 0;
 uint32_t uvc_ready_frame_length = 0;
 
 //Flags
+
 uint8_t uvc_parsing_initialized = 0;
 
 uint8_t uvc_parsing_new_frame_ready = 0;
@@ -36,7 +45,6 @@ uint8_t uvc_frame_start_detected = 0;
 
 //Previous packet was EOF
 uint8_t uvc_prev_packet_eof = 1;
-
 
 extern volatile uint8_t tmp_packet_framebuffer[UVC_RX_FIFO_SIZE_LIMIT];
 
