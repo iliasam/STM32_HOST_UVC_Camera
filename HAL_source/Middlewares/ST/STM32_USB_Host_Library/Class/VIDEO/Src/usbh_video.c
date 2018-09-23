@@ -1,5 +1,6 @@
-//UVC HOST video capture for STM32 by ILIASAM
-//Search for "GRXFSIZ" to change RX FIFO size
+// UVC HOST video capture for STM32 by ILIASAM
+// Search for "GRXFSIZ" to change RX FIFO size
+// See mor info at "usbh_video_stram_parsing.c" file
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbh_video.h"
@@ -47,7 +48,7 @@ volatile uint8_t tmp_packet_framebuffer[UVC_RX_FIFO_SIZE_LIMIT];
 
 /**
   * @brief  USBH_VIDEO_InterfaceInit 
-  *         The function init the Audio class.
+  *         The function init the Video class.
   * @param  phost: Host handle
   * @retval USBH Status
   */
@@ -83,7 +84,7 @@ static USBH_StatusTypeDef USBH_VIDEO_InterfaceInit (USBH_HandleTypeDef *phost)
       return USBH_FAIL;
     }
     
-    /* 2nd Step:  Select Audio Streaming Interfaces with best endpoint size*/ 
+    /* 2nd Step:  Select Video Streaming Interfaces with best endpoint size*/ 
     for (index = 0; index < VIDEO_MAX_VIDEO_STD_INTERFACE; index++)
     {      
       if( VIDEO_Handle->stream_in[index].valid == 1)
@@ -152,7 +153,7 @@ static USBH_StatusTypeDef USBH_VIDEO_InterfaceInit (USBH_HandleTypeDef *phost)
 
 /**
   * @brief  USBH_VIDEO_InterfaceDeInit 
-  *         The function DeInit the Pipes used for the Audio class.
+  *         The function DeInit the Pipes used for the Video class.
   * @param  phost: Host handle
   * @retval USBH Status
   */
@@ -178,7 +179,7 @@ USBH_StatusTypeDef USBH_VIDEO_InterfaceDeInit(USBH_HandleTypeDef *phost)
 /**
   * @brief  USBH_VIDEO_ClassRequest 
   *         The function is responsible for handling Standard requests
-  *         for Audio class.
+  *         for Video class.
   * @param  phost: Host handle
   * @retval USBH Status
   */
@@ -257,7 +258,7 @@ static USBH_StatusTypeDef USBH_VIDEO_ClassRequest(USBH_HandleTypeDef *phost)
 /**
   * @brief  USBH_VIDEO_CSRequest 
   *         The function is responsible for handling AC Specific requests for a specific feature and channel
-  *         for Audio class.
+  *         for Video class.
   * @param  phost: Host handle
   * @retval USBH Status
   */

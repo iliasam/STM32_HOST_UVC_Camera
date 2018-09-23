@@ -1,6 +1,9 @@
+//Parsing UVC descriptors
+
 #include "usbh_video_desc_parsing.h"
 #include "usbh_conf.h"
 
+//Target UVC mode
 USBH_VIDEO_TargetFormat_t USBH_VIDEO_Target_Format = UVC_CAPTURE_MODE;
 
 int USBH_VIDEO_Target_Width = UVC_TARGET_WIDTH;// Width in pixels
@@ -13,7 +16,7 @@ int  USBH_VIDEO_Best_bFormatIndex = -1;
 int  USBH_VIDEO_Best_bFrameIndex = -1;
 
 /**
-  * @brief  Find IN Audio Streaming interfaces
+  * @brief  Find IN Video Streaming interfaces
   * @param  phost: Host handle
   * @retval USBH Status
   */
