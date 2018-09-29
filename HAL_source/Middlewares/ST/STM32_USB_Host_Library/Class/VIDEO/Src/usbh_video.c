@@ -434,7 +434,7 @@ USBH_StatusTypeDef USBH_VS_GetCur(USBH_HandleTypeDef *phost, uint16_t request_ty
   
   phost->Control.setup.b.bRequest = UVC_GET_CUR;
   phost->Control.setup.b.wValue.w = request_type;
- phost->Control.setup.b.wIndex.w = VIDEO_Handle->camera.interface; //Video Streaming interface number
+  phost->Control.setup.b.wIndex.w = VIDEO_Handle->camera.interface; //Video Streaming interface number
   phost->Control.setup.b.wLength.w = wLength;
   
   USBH_StatusTypeDef status;

@@ -79,7 +79,7 @@
 #define USBH_MAX_SIZE_CONFIGURATION      1024 
  
 /*----------   -----------*/
-#define USBH_MAX_DATA_BUFFER      512 
+#define USBH_MAX_DATA_BUFFER      512 //???? 
  
 /*----------   -----------*/
 #define USBH_DEBUG_LEVEL      3 

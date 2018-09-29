@@ -114,7 +114,7 @@ static void USBH_UserProcess  (USBH_HandleTypeDef *phost, uint8_t id)
     if (status == USBH_OK)
     {
       USBH_VS_SetCur(phost, VS_COMMIT_CONTROL << 8);
-      USBH_VS_GetCur(phost, VS_COMMIT_CONTROL << 8);
+      //USBH_VS_GetCur(phost, VS_COMMIT_CONTROL << 8);
     }
   break;
     

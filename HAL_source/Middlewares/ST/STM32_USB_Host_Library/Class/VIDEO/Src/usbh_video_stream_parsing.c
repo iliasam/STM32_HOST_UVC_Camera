@@ -2,7 +2,7 @@
 // Received image stored at one of two framebuffers
 // When a new frame received, "uvc_parsing_new_frame_ready" flag is set
 // This flag MUST be cleared by external software
-// External software can read raw captured image dat from "uvc_ready_framebuffer_ptr"
+// External software can read raw captured image data from "uvc_ready_framebuffer_ptr"
 // Size of that data is "uvc_ready_frame_length"
 // After external software compete data processing, it MUST call video_stream_ready_update()
 
