@@ -11,7 +11,7 @@ Hardware: Core429I devboard + custom devboard with R-2R VGA DAC, USB type A conn
 Custom devboard schematic: https://github.com/iliasam/stm32f429_vga_examples/tree/master/schematic  
 USB camera is connected to the USB Host of the STM32F429 MCU; and picture from is displayed at the VGA monitor.  
 USB host is working in Full Speed mode (FS). As I found, some USB cameras not working in this mode.  
-Logitech C100 working well - in YUY2 and MJPEG mode. Maximum resolution of this camera is 640x480 in MJPEG mode.  
+Logitech C100 is working well - in YUY2 and MJPEG mode. Maximum resolution of this camera is 640x480 in MJPEG mode.  
 
 Working board:  
 ![Alt text](Pictures/example.jpg?raw=true "Image")  
