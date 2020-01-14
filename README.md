@@ -4,7 +4,7 @@ Article in Russian: http://we.easyelectronics.ru/STM32/zahvat-izobrazheniya-s-us
 Video:  
 https://youtu.be/qacLZCAig08  
 
-"stm32F429_project"  
+* "stm32F429_project"  
 Hardware: Core429I devboard + custom devboard with R-2R VGA DAC, USB type A connector, SDCard and camera connectors:  
 ![Alt text](Pictures/ModuleSchematic.png?raw=true "Image")
 
@@ -16,5 +16,5 @@ Logitech C100 is working well - in YUY2 and MJPEG mode. Maximum resolution of th
 Working board:  
 ![Alt text](Pictures/example.jpg?raw=true "Image")  
 
-"stm32F4_discovery_project"  
+* "stm32F4_discovery_project"  
 Simple example for STM32F4 discovery. Just save one captured frame to the PC.
