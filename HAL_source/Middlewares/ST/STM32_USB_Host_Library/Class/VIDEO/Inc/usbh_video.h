@@ -25,7 +25,7 @@
    
 #define UVC_MAX_FRAME_SIZE              UVC_UNCOMP_FRAME_SIZE
 //TODO - UVC_MAX_FRAME_SIZE for MJPEG mode can be smaller.
-//Needed calue is send by camera - see "USBH_VS_GetCur" - dwMaxVideoFrameSize
+//Needed value is send by camera - see "USBH_VS_GetCur" - dwMaxVideoFrameSize
    
 typedef enum
 {
