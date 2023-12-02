@@ -16,5 +16,6 @@ Logitech C100 is working well - in YUY2 and MJPEG mode. Maximum resolution of th
 Working board:  
 ![Alt text](Pictures/example.jpg?raw=true "Image")  
 
+  
 * "stm32F4_discovery_project"  
-Simple example for STM32F4 discovery. Just save one captured frame to the PC.
+Simple example for STM32F4-Discovery. Just save one captured frame to the PC (using IAR).
